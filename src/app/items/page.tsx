@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Timer } from "../components/timer";
 
 type PageProps = {
   searchParams: { page?: string };
@@ -10,7 +11,10 @@ export default async function Home(props: PageProps) {
   return (
     <main className="p-4 flex flex-col">
       <div className="flex flex-col gap-4">
-        <h1 className="text-xl">You are on page {page}.</h1>
+        <h1 className="text-xl">
+          You are on page {page} for <Timer startTime={new Date()} />
+          s.
+        </h1>
 
         <span>
           Note that the bug only kicks in if you navigated to this page from /.
@@ -18,10 +22,6 @@ export default async function Home(props: PageProps) {
         <span>If you do a refresh on this site it won{"'"}t reproduce</span>
         <span>
           It also has to be a production build. So next dev does not work.
-        </span>
-        <span>
-          Also note that the order matters. If the order that the links appear
-          is switched, the bug won{"'"}t reproduce.
         </span>
 
         <div>
@@ -37,8 +37,7 @@ export default async function Home(props: PageProps) {
           >
             page 1
           </Link>{" "}
-          (click me second, it will not work. You have to click me again for it
-          to update)
+          (click me second, it works as expected. But its reusing client state)
         </div>
 
         <div>
